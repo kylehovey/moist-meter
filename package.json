@@ -1,0 +1,19 @@
+{
+  "name": "moist-meter",
+  "version": "1.0.0",
+  "description": "Bot that keeps track of how many hours people have been playing Risk of Rain 2 in Discord.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kylehovey/moist-meter.git"
+  },
+  "author": "Kyle Hovey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kylehovey/moist-meter/issues"
+  },
+  "homepage": "https://github.com/kylehovey/moist-meter#readme"
+}
