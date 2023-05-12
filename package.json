@@ -4,7 +4,7 @@
   "description": "Bot that keeps track of how many hours people have been playing Risk of Rain 2 in Discord.",
   "main": "index.js",
   "scripts": {
-    "prod": "NODE_ENV=production && node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
