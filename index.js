@@ -1,3 +1,5 @@
+require("dotenv-flow").config();
+
 const { Client, GatewayIntentBits } = require("discord.js");
 const sqlite3 = require("sqlite3").verbose();
 
@@ -123,4 +125,4 @@ function generateScoreboard() {
   return scoreboard;
 }
 
-client.login("YOUR_BOT_TOKEN");
+client.login(process.env.DISCORD_TOKEN);
