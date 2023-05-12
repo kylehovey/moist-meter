@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/kylehovey/moist-meter/issues"
   },
-  "homepage": "https://github.com/kylehovey/moist-meter#readme"
+  "homepage": "https://github.com/kylehovey/moist-meter#readme",
+  "dependencies": {
+    "discord.js": "^14.11.0",
+    "sqlite3": "^5.1.6"
+  }
 }

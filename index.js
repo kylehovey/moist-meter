@@ -1,8 +1,43 @@
-const { Client, Intents } = require("discord.js");
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const { Client, GatewayIntentBits } = require("discord.js");
+const sqlite3 = require("sqlite3").verbose();
+
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+
+// Connect to the SQLite database
+const db = new sqlite3.Database("playing_time.db", (err) => {
+  if (err) {
+    console.error("Error connecting to the database:", err.message);
+  } else {
+    console.log("Connected to the database");
+  }
+});
+
+// Create the 'playing_time' table if it doesn't exist
+db.run(
+  `CREATE TABLE IF NOT EXISTS playing_time (
+    member_id TEXT PRIMARY KEY,
+    playing_hours REAL
+  )`,
+  (err) => {
+    if (err) {
+      console.error("Error creating table:", err.message);
+    }
+  }
+);
 
 // Store the playing time for each member
 const playingTime = new Map();
+
+// Load the playing time data from the database
+db.all("SELECT * FROM playing_time", (err, rows) => {
+  if (err) {
+    console.error("Error retrieving playing time data:", err.message);
+  } else {
+    for (const row of rows) {
+      playingTime.set(row.member_id, row.playing_hours.toFixed(1));
+    }
+  }
+});
 
 client.once("ready", () => {
   console.log("Bot is ready!");
@@ -39,6 +74,20 @@ client.on("presenceUpdate", (oldPresence, newPresence) => {
 
     // Update the playing time for the member
     playingTime.set(member.id, playingHours.toFixed(1));
+
+    // Update the playing time in the database
+    db.run(
+      "REPLACE INTO playing_time (member_id, playing_hours) VALUES (?, ?)",
+      [member.id, playingHours],
+      (err) => {
+        if (err) {
+          console.error(
+            "Error updating playing time in the database:",
+            err.message
+          );
+        }
+      }
+    );
   }
 });
 
